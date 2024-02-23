@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class PlayerHealth : MonoBehaviour
+{
+    public GameObject healthPrefab; // Assign in inspector
+    public int maxHealth = 5;
+
+    //arrangement for heart icons
+    private float width = 1f;
+    private float height = 4.2f;
+    private float startPosition;
+
+    private int currentHealth;
+    private GameObject[] healthIcons;
+    public TextMeshProUGUI WinUI;
+
+    void Start()
+    {
+        if (GetComponent<PlayerControl>().playerIndex == 1) {
+            startPosition = -7f;
+        }
+        else
+        {
+            startPosition = 2.5f;
+        }
+        currentHealth = maxHealth;
+        healthIcons = new GameObject[maxHealth];
+
+        for (int i = 0; i < maxHealth; i++)
+        {
+            GameObject healthIcon = Instantiate(healthPrefab, new Vector3(startPosition + i * width, height, 0), Quaternion.identity);
+            healthIcons[i] = healthIcon;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth < 0) currentHealth = 0;
+
+        // Update health display
+        for (int i = 0; i < healthIcons.Length; i++)
+        {
+            if (i < currentHealth)
+                healthIcons[i].SetActive(true);
+            else
+                healthIcons[i].SetActive(false);
+        }
+
+        //check if game over
+        if (currentHealth <= 0)
+        {
+            GetComponent<PlayerControl>().isDead = true;
+            if (GetComponent<PlayerControl>().playerIndex == 1)
+            {
+                WinUI.text = "Green Team Wins";
+            }
+            else
+            {
+                WinUI.text = "Red Team Wins";
+            }
+            WinUI.enabled = true;
+        }
+    }
+
+    // Example function to customize max health
+    public void SetMaxHealth(int newMaxHealth)
+    {
+        // Destroy existing health icons
+        foreach (GameObject icon in healthIcons)
+        {
+            Destroy(icon);
+        }
+
+        // Update maxHealth and reset currentHealth
+        maxHealth = newMaxHealth;
+        currentHealth = maxHealth; // Fully restore health; adjust this line if you prefer a different logic
+
+        // Reinitialize the healthIcons array to the new size
+        healthIcons = new GameObject[maxHealth];
+
+        // Instantiate new health icons
+        for (int i = 0; i < maxHealth; i++)
+        {
+            GameObject healthIcon = Instantiate(healthPrefab, new Vector3(i * 1.5f, 5, 0), Quaternion.identity);
+            healthIcons[i] = healthIcon;
+            healthIcon.transform.SetParent(this.transform); 
+        }
+    }
+}
+
