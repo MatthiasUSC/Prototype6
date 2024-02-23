@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerControl1 : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
+    public int playerIndex = 1;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float projectileSpeed;
     private double nextFireTime;
     public static double fireCooldown = 2;
+    public bool isDead = false;
 
     [SerializeField] private GameObject pointer;
     [SerializeField] private GameObject projectilePrefab;
@@ -30,55 +32,55 @@ public class playerControl1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Calculate movement based on WASD keys
-        float horizontalInput = 0f;
-        float verticalInput = 0f;
-
-        if (Input.GetKey(KeyCode.W))
+        if (!isDead)
         {
-            verticalInput = 1f;
+            Move();
+
+            // Fire projectile if cooldown has passed
+            if (Time.time >= nextFireTime)
+            {
+                if ((playerIndex == 1 && Input.GetButtonDown("Fire_p1")) || (playerIndex == 2 && Input.GetButtonDown("Fire_p2")))
+                {
+                    Debug.Log("in fire");
+                    FireProjectile();
+                    nextFireTime = Time.time + fireCooldown; // Set next fire time
+
+                    // Play the projectile sound
+                    audioSource.PlayOneShot(projectileSound);
+
+                    // Reset the cooldown indicator scale
+                    StartCoroutine(ResetCooldownIndicator());
+                }
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
+        
+        
+    }
+
+    /* Method name: Move
+     * Description: for regular movements*/
+    private void Move()
+    {
+        float horizontal, vertical, rotation;
+
+        //distinguish two players and getting inputs
+        if (playerIndex == 1)
         {
-            verticalInput = -1f;
+            horizontal = Input.GetAxis("Horizontal_p1");
+            vertical = Input.GetAxis("Vertical_p1");
+            rotation = Input.GetAxis("Rotation_p1");
         }
-
-        if (Input.GetKey(KeyCode.A))
+        else
         {
-            horizontalInput = -1f;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            horizontalInput = 1f;
+            horizontal = Input.GetAxis("Horizontal_p2");
+            vertical = Input.GetAxis("Vertical_p2");
+            rotation = Input.GetAxis("Rotation_p2");
         }
 
-        Vector3 movement = new Vector3(horizontalInput, verticalInput, 0f) * moveSpeed * Time.deltaTime;
-
-        // Move the GameObject
-        transform.Translate(movement);
-
-        // Rotate the pointer around the circle sprite
-        if (Input.GetKey(KeyCode.K))
-        {
-            pointer.transform.RotateAround(transform.position, Vector3.forward, -rotationSpeed * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.H))
-        {
-            pointer.transform.RotateAround(transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
-        }
-
-        // Fire projectile if cooldown has passed
-        if (Input.GetKeyDown(KeyCode.J) && Time.time >= nextFireTime)
-        {
-            FireProjectile();
-            nextFireTime = Time.time + fireCooldown; // Set next fire time
-
-            // Play the projectile sound
-            audioSource.PlayOneShot(projectileSound);
-
-            // Reset the cooldown indicator scale
-            StartCoroutine(ResetCooldownIndicator());
-        }
+        Vector3 movement = new Vector3(horizontal, vertical, 0f) * moveSpeed * Time.deltaTime;
+        transform.Translate(movement);// Move the GameObject
+        Debug.Log(rotation);
+        pointer.transform.RotateAround(transform.position, Vector3.forward, rotation * rotationSpeed * Time.deltaTime);//rotate
     }
 
     IEnumerator ResetCooldownIndicator()
