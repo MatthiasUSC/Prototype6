@@ -34,12 +34,14 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
+    void FixedUpdate(){
+        if (!isDead){
+            Move();
+        }
+    }
     void Update()
     {
-        if (!isDead)
-        {
-            Move();
-
+        if (!isDead){
             // Fire projectile if cooldown has passed
             if (Time.time >= nextFireTime)
             {
@@ -57,8 +59,6 @@ public class PlayerControl : MonoBehaviour
                 }
             }
         }
-        
-        
     }
 
     /* Method name: Move
@@ -81,8 +81,8 @@ public class PlayerControl : MonoBehaviour
             rotation = Input.GetAxis("Rotation_p2");
         }
 
-        Vector3 movement = new Vector3(horizontal, vertical, 0f) * moveSpeed * Time.deltaTime;
-        transform.Translate(movement);// Move the GameObject
+        Vector2 movement = new Vector2(horizontal, vertical) * moveSpeed;
+        GetComponent<Rigidbody2D>().velocity = movement;
         //Debug.Log(rotation);
         pointer.transform.RotateAround(transform.position, Vector3.forward, rotation * rotationSpeed * Time.deltaTime);//rotate
     }
