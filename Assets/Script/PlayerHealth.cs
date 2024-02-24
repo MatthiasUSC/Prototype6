@@ -9,8 +9,8 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 5;
 
     //arrangement for heart icons
-    private float width = 1f;
-    private float height = 4.2f;
+    private float width = 1.2f;
+    private float height = 5.8f;
     private float startPosition;
 
     private int currentHealth;
@@ -20,11 +20,11 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         if (GetComponent<PlayerControl>().playerIndex == 1) {
-            startPosition = -7f;
+            startPosition = -10f;
         }
         else
         {
-            startPosition = 2.5f;
+            startPosition = 5.5f;
         }
         currentHealth = maxHealth;
         healthIcons = new GameObject[maxHealth];
@@ -38,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("Damage is " + damage);
         currentHealth -= damage;
         if (currentHealth < 0) currentHealth = 0;
 
@@ -53,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
         //check if game over
         if (currentHealth <= 0)
         {
+            Debug.Log("suppose to dead");
             GetComponent<PlayerControl>().isDead = true;
             if (GetComponent<PlayerControl>().playerIndex == 1)
             {

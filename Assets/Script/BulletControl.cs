@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bubbleControl1 : MonoBehaviour
+public class BulletControl : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -16,13 +16,12 @@ public class bubbleControl1 : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the collision is with an object tagged "Player 2"
-        if (collision.gameObject.CompareTag("Player 2"))
+        if (!collision.gameObject.CompareTag("Player"))
         {
-            // Destroy the projectile
             Destroy(gameObject);
         }
     }
+
 }

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8623384100127802886}
-  - component: {fileID: 7490203253659734262}
   - component: {fileID: 3545638240796011943}
   - component: {fileID: 4021585766312867421}
   - component: {fileID: 7989806975751316914}
@@ -38,25 +37,6 @@ Transform:
   - {fileID: 3096714975605402850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7490203253659734262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3616027443705177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cbeb26772650524ba00ad2cc021134c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 250
-  projectileSpeed: 10
-  pointer: {fileID: 4820145259734880392}
-  projectilePrefab: {fileID: 479115088538904596, guid: aaa91b44fa59a6b489857153ecb220f8, type: 3}
-  cooldownIndicator: {fileID: 9051874481740635671}
-  projectileSound: {fileID: 8300000, guid: 8cae2c8ba1869a349a58221a68b4f96b, type: 3}
 --- !u!212 &3545638240796011943
 SpriteRenderer:
   m_ObjectHideFlags: 0

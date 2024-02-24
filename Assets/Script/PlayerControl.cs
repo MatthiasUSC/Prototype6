@@ -20,6 +20,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private AudioClip projectileSound;
     private AudioSource audioSource;
 
+
+    //Traits Control
+    public int EnermyDamage = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +45,7 @@ public class PlayerControl : MonoBehaviour
             {
                 if ((playerIndex == 1 && Input.GetButtonDown("Fire_p1")) || (playerIndex == 2 && Input.GetButtonDown("Fire_p2")))
                 {
-                    Debug.Log("in fire");
+                    //Debug.Log("in fire");
                     FireProjectile();
                     nextFireTime = Time.time + fireCooldown; // Set next fire time
 
@@ -79,7 +83,7 @@ public class PlayerControl : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, vertical, 0f) * moveSpeed * Time.deltaTime;
         transform.Translate(movement);// Move the GameObject
-        Debug.Log(rotation);
+        //Debug.Log(rotation);
         pointer.transform.RotateAround(transform.position, Vector3.forward, rotation * rotationSpeed * Time.deltaTime);//rotate
     }
 
@@ -122,5 +126,16 @@ public class PlayerControl : MonoBehaviour
 
         // Apply force to the projectile in the direction of the pointer
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("is collided");
+        if ((collision.gameObject.CompareTag("Bullet_p1") && playerIndex == 2) ||
+            (collision.gameObject.CompareTag("Bullet_p2") && playerIndex == 1))
+        {
+            GetComponent<PlayerHealth>().TakeDamage(EnermyDamage);
+            Destroy(collision.gameObject);
+        }
     }
 }
