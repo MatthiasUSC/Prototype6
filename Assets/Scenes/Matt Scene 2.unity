@@ -339,8 +339,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 2
   moveSpeed: 5
+  slowSpeed: 4
+  fastSpeed: 6
+  bigSize: 1.25
+  smallSize: 0.75
+  bigBulletSize: 0.65
   rotationSpeed: 250
   projectileSpeed: 12
+  slowProjectileSpeed: 0
   isDead: 0
   pointer: {fileID: 1347760978}
   projectilePrefab: {fileID: 479115088538904596, guid: d22eb27ab29020543a40ca9b7e994852, type: 3}
@@ -1711,8 +1717,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 1
   moveSpeed: 5
+  slowSpeed: 4
+  fastSpeed: 6
+  bigSize: 1.25
+  smallSize: 0.75
+  bigBulletSize: 0.65
   rotationSpeed: 250
   projectileSpeed: 12
+  slowProjectileSpeed: 0
   isDead: 0
   pointer: {fileID: 365038407}
   projectilePrefab: {fileID: 1050243093071025295, guid: 29334bd8c60bf294890b6a33ed0bfda7, type: 3}
@@ -1782,22 +1794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traitList:
-  - id: xraybullet
-    weight: 0
-    displayName: 
-  - id: multibullet
-    weight: 0
-    displayName: 
-  - id: curveleft
-    weight: 0
-    displayName: 
-  - id: invertedcontrols
-    weight: 0
-    displayName: 
-  - id: noaim
-    weight: 0
-    displayName: 
-  - id: bouncebullets
+  - id: teleporthit
     weight: 0
     displayName: 
 --- !u!1 &2140305191

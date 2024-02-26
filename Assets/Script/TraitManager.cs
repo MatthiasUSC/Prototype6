@@ -27,6 +27,10 @@ public class TraitManager : MonoBehaviour
         new Trait{id="fastspeed", weight=1, displayName="Fast Speed"},
         new Trait{id="slowspeed", weight=-1, displayName="Slow Speed"},
         new Trait{id="slowbullets", weight=-1, displayName="Slow Bullets"},
+        new Trait{id="jammedgun", weight=-1, displayName="Jammed Gun"},
+        new Trait{id="shakyaim", weight=-1, displayName="Shaky Aim"},
+        new Trait{id="homingbullet", weight=1, displayName="Homing Bullets"},
+        new Trait{id="teleporthit", weight=1, displayName="Teleportation"}
     };
 
     public List<GameObject> players;

@@ -53,6 +53,13 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth < 0) currentHealth = 0;
 
+        if(GetComponent<TraitList>().hasTrait("teleporthit")){
+            float horzExtent = Camera.main.orthographicSize * Screen.width / Screen.height;
+            float x = Random.Range(-horzExtent, horzExtent);
+            float y = Random.Range(-Camera.main.orthographicSize, Camera.main.orthographicSize);
+            transform.position = new Vector3(x, y, 0);
+        }
+
         // Update health display
         for (int i = 0; i < healthIcons.Length; i++)
         {

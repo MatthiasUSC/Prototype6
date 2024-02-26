@@ -11,6 +11,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float bigSize = 1.25f;
     [SerializeField] private float smallSize = 0.75f;
     [SerializeField] private float bigBulletSize = 0.65f;
+
+    private float shakyAimStrength = 600f;
+
+    private float jammedGunChance = 0.25f;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float slowProjectileSpeed;
@@ -83,16 +87,26 @@ public class PlayerControl : MonoBehaviour
                 if ((playerIndex == 1 && Input.GetButtonDown("Fire_p1")) || (playerIndex == 2 && Input.GetButtonDown("Fire_p2")))
                 {
                     //Debug.Log("in fire");
-                    if(GetComponent<TraitList>().hasTrait("multibullet")){
-                        StartCoroutine(fireBurst());
-                    } else {
-                        FireProjectile();
+                    bool canFire = true;
+                    if(GetComponent<TraitList>().hasTrait("jammedgun")){
+                        if(Random.Range(0.0f, 1.0f) < jammedGunChance){
+                            canFire = false;
+                        }
                     }
-                    
-                    nextFireTime = Time.time + fireCooldown; // Set next fire time
 
-                    // Play the projectile sound
-                    audioSource.PlayOneShot(projectileSound);
+                    if(canFire){
+                        if(GetComponent<TraitList>().hasTrait("multibullet")){
+                            StartCoroutine(fireBurst());
+                        } else {
+                            FireProjectile();
+                        }
+
+                        // Play the projectile sound
+                        audioSource.PlayOneShot(projectileSound);
+                    }
+
+                    nextFireTime = Time.time + fireCooldown; // Set next fire time
+                    
 
                     // Reset the cooldown indicator scale
                     StartCoroutine(ResetCooldownIndicator());
@@ -147,6 +161,12 @@ public class PlayerControl : MonoBehaviour
         else
         {
             pointer.transform.RotateAround(transform.position, Vector3.forward, rotation * rotationSpeed * Time.deltaTime);//rotate with input
+
+            if(GetComponent<TraitList>().hasTrait("shakyaim")){
+                float delta = Random.Range(-1.0f, 1.0f);
+                pointer.transform.RotateAround(transform.position, Vector3.forward, delta * shakyAimStrength * Time.deltaTime);//rotate with input
+            }
+            
         }
         
     }

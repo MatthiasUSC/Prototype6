@@ -5,7 +5,11 @@ using UnityEngine;
 public class BulletControl : MonoBehaviour
 {
     private float destroySpeed = 1f;
+
+    private float homingForce = 10f;
     public GameObject originPlayer;
+
+    private GameObject otherPlayer;
     
     Vector2 perpDir;
     public float curveForce = 10f;
@@ -15,6 +19,12 @@ public class BulletControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(originPlayer.name == "Player1"){
+            otherPlayer = GameObject.Find("Player2");
+        } else {
+            otherPlayer = GameObject.Find("Player1");
+        }
+
         Vector2 initVel = GetComponent<Rigidbody2D>().velocity.normalized;
         perpDir = new Vector2(initVel.y, -initVel.x);
 
@@ -39,6 +49,10 @@ public class BulletControl : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForce(perpDir * curveForce);
         }
         
+        if(originPlayer.GetComponent<TraitList>().hasTrait("homingbullet")){
+            Vector2 delta = (Vector2)(otherPlayer.transform.position - transform.position);
+            GetComponent<Rigidbody2D>().AddForce(delta.normalized * homingForce);
+        }
 
 
     }
