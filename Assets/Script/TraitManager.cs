@@ -21,7 +21,12 @@ public class TraitManager : MonoBehaviour
         new Trait{id="xraybullet", weight=1, displayName="X-ray Bullets"},
         new Trait{id="bouncebullets", weight=0, displayName="Bouncing bullets but friendly fire"},
         new Trait{id="noaim", weight=-1, displayName="No aiming"},
-        new Trait{id="invertedcontrols", weight=-3, displayName="Inverted controls"}
+        new Trait{id="invertedcontrols", weight=-3, displayName="Inverted controls"},
+        new Trait{id="smallsize", weight=1, displayName="Small Size"},
+        new Trait{id="bigsize", weight=-1, displayName="Big Size"},
+        new Trait{id="fastspeed", weight=1, displayName="Fast Speed"},
+        new Trait{id="slowspeed", weight=-1, displayName="Slow Speed"},
+        new Trait{id="slowbullets", weight=-1, displayName="Slow Bullets"},
     };
 
     public List<GameObject> players;

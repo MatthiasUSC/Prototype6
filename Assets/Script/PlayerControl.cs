@@ -6,8 +6,14 @@ public class PlayerControl : MonoBehaviour
 {
     public int playerIndex = 1;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float slowSpeed = 4f;
+    [SerializeField] private float fastSpeed = 6f;
+    [SerializeField] private float bigSize = 1.25f;
+    [SerializeField] private float smallSize = 0.75f;
+    [SerializeField] private float bigBulletSize = 0.65f;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float projectileSpeed;
+    [SerializeField] private float slowProjectileSpeed;
     private double nextFireTime;
     public static float fireCooldown = 1f;
     public bool isDead = false;
@@ -28,6 +34,26 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         nextFireTime = Time.time; // Initialize next fire time
+
+        //initialize traits
+        if (GetComponent<TraitList>().hasTrait("smallsize") && !GetComponent<TraitList>().hasTrait("bigsize"))
+        {
+            transform.localScale = new Vector3(smallSize, smallSize, smallSize);
+        }
+        if (GetComponent<TraitList>().hasTrait("bigsize") && !GetComponent<TraitList>().hasTrait("smallsize"))
+        {
+            transform.localScale = new Vector3(bigSize, bigSize, bigSize);
+        }
+        if (GetComponent<TraitList>().hasTrait("slowbullets"))
+        {
+            projectileSpeed = slowProjectileSpeed;
+        }
+
+        /*isSlowBullets = ? true : false;
+
+
+        if (GetComponent<TraitList>().hasTrait("slowspeed")) { sizeLevel = 0; }
+        else if (GetComponent<TraitList>().hasTrait("fastspeed")) { sizeLevel = 2; }*/
 
         // Get the AudioSource component attached to the GameObject
         audioSource = GetComponent<AudioSource>();
@@ -84,9 +110,8 @@ public class PlayerControl : MonoBehaviour
     private void Move()
     {
         float horizontal, vertical, rotation, ifReverse;
-        bool AutoRotation;
         ifReverse = GetComponent<TraitList>().hasTrait("invertedcontrols") ? -1f : 1f;
-        AutoRotation = GetComponent<TraitList>().hasTrait("noaim") ? true : false;
+        bool AutoRotation = GetComponent<TraitList>().hasTrait("noaim") ? true : false;
 
         //distinguish two players and getting inputs
         if (playerIndex == 1)
@@ -100,6 +125,14 @@ public class PlayerControl : MonoBehaviour
             horizontal = ifReverse * Input.GetAxis("Horizontal_p2");
             vertical = ifReverse * Input.GetAxis("Vertical_p2");
             rotation = Input.GetAxis("Rotation_p2");
+        }
+
+        if (GetComponent<TraitList>().hasTrait("slowspeed") && !GetComponent<TraitList>().hasTrait("fastspeed"))
+        {
+            moveSpeed = slowSpeed;
+        }else if (GetComponent<TraitList>().hasTrait("fastspeed") && !GetComponent<TraitList>().hasTrait("slowspeed"))
+        {
+            moveSpeed = fastSpeed;
         }
 
         //Perform Movement
@@ -154,6 +187,10 @@ public class PlayerControl : MonoBehaviour
         //set up for friendly fire trait
         projectile.GetComponent<BulletControl>().friendlyFire = GetComponent<TraitList>().hasTrait("bouncebullets") ? true : false;
         projectile.GetComponent<BulletControl>().firedTime = Time.time;
+        if (GetComponent<TraitList>().hasTrait("bigbullets"))
+        {
+            projectile.transform.localScale = new Vector3(bigBulletSize, bigBulletSize, bigBulletSize);
+        }
         // Calculate direction towards pointer
         Vector3 direction = (pointer.transform.position - transform.position).normalized;
 

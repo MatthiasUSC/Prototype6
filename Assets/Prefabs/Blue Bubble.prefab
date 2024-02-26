@@ -113,7 +113,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5391748257635787527}
@@ -131,6 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bfe07de3fa62cc42886793ede84b500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originPlayer: {fileID: 0}
+  curveForce: 10
+  friendlyFire: 0
+  firedTime: 0
 --- !u!50 &992595576085370190
 Rigidbody2D:
   serializedVersion: 4
