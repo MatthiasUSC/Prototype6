@@ -760,6 +760,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7619164536382684998, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
+    - target: {fileID: 7619164536382684998, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7619164536382684998, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7619164536382684998, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 957272912736692893, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
@@ -1448,7 +1464,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.7160428, g: 0.8593781, b: 0.9580713, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.051823054, b: 0.7433963, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1519,6 +1535,22 @@ PrefabInstance:
     - target: {fileID: 3616027443705177, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1498778227888745306, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
+    - target: {fileID: 1498778227888745306, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1498778227888745306, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1498778227888745306, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3545638240796011943, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
       propertyPath: m_Color.b
@@ -1695,6 +1727,15 @@ MonoBehaviour:
     weight: 0
     displayName: 
   - id: curveleft
+    weight: 0
+    displayName: 
+  - id: invertedcontrols
+    weight: 0
+    displayName: 
+  - id: noaim
+    weight: 0
+    displayName: 
+  - id: bouncebullets
     weight: 0
     displayName: 
 --- !u!1 &2140305191
