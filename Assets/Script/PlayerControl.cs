@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float projectileSpeed;
     private double nextFireTime;
-    public static double fireCooldown = 2;
+    public static float fireCooldown = 1f;
     public bool isDead = false;
 
     [SerializeField] private GameObject pointer;
@@ -39,6 +39,15 @@ public class PlayerControl : MonoBehaviour
             Move();
         }
     }
+
+    IEnumerator fireBurst(){
+        FireProjectile();
+        yield return new WaitForSeconds(fireCooldown / 4f);
+        FireProjectile();
+        yield return new WaitForSeconds(fireCooldown / 4f);
+        FireProjectile();
+    }
+
     void Update()
     {
         if (!isDead){
@@ -48,7 +57,12 @@ public class PlayerControl : MonoBehaviour
                 if ((playerIndex == 1 && Input.GetButtonDown("Fire_p1")) || (playerIndex == 2 && Input.GetButtonDown("Fire_p2")))
                 {
                     //Debug.Log("in fire");
-                    FireProjectile();
+                    if(GetComponent<TraitList>().hasTrait("multibullet")){
+                        StartCoroutine(fireBurst());
+                    } else {
+                        FireProjectile();
+                    }
+                    
                     nextFireTime = Time.time + fireCooldown; // Set next fire time
 
                     // Play the projectile sound
@@ -126,6 +140,8 @@ public class PlayerControl : MonoBehaviour
 
         // Apply force to the projectile in the direction of the pointer
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+    
+        projectile.GetComponent<BulletControl>().originPlayer = this.gameObject;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
