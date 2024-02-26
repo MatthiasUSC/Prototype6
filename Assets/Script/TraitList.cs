@@ -6,7 +6,7 @@ public class TraitList : MonoBehaviour
 {
     public List<TraitManager.Trait> traitList = new List<TraitManager.Trait>();
 
-    bool hasTrait(string traitId){
+    public bool hasTrait(string traitId){
         for(int i = 0; i < traitList.Count; i++){
             if(traitList[i].id.Equals(traitId)){
                 return true;

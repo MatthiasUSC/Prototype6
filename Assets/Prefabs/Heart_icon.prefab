@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9145838841176759188}
   - component: {fileID: 7411238792924062987}
   m_Layer: 0
-  m_Name: Heart_ish
+  m_Name: Heart_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5993354500400816545
 Transform:
   m_ObjectHideFlags: 0

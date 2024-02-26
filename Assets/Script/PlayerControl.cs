@@ -65,26 +65,39 @@ public class PlayerControl : MonoBehaviour
      * Description: for regular movements*/
     private void Move()
     {
-        float horizontal, vertical, rotation;
+        float horizontal, vertical, rotation, ifReverse;
+        bool AutoRotation;
+        ifReverse = GetComponent<TraitList>().hasTrait("invertedcontrols") ? -1f : 1f;
+        AutoRotation = GetComponent<TraitList>().hasTrait("noaim") ? true : false;
 
         //distinguish two players and getting inputs
         if (playerIndex == 1)
         {
-            horizontal = Input.GetAxis("Horizontal_p1");
-            vertical = Input.GetAxis("Vertical_p1");
+            horizontal = ifReverse * Input.GetAxis("Horizontal_p1");
+            vertical = ifReverse * Input.GetAxis("Vertical_p1");
             rotation = Input.GetAxis("Rotation_p1");
         }
         else
         {
-            horizontal = Input.GetAxis("Horizontal_p2");
-            vertical = Input.GetAxis("Vertical_p2");
+            horizontal = ifReverse * Input.GetAxis("Horizontal_p2");
+            vertical = ifReverse * Input.GetAxis("Vertical_p2");
             rotation = Input.GetAxis("Rotation_p2");
         }
 
+        //Perform Movement
         Vector2 movement = new Vector2(horizontal, vertical) * moveSpeed;
         GetComponent<Rigidbody2D>().velocity = movement;
-        //Debug.Log(rotation);
-        pointer.transform.RotateAround(transform.position, Vector3.forward, rotation * rotationSpeed * Time.deltaTime);//rotate
+
+        //Perform Rotation
+        if (AutoRotation)
+        {
+            pointer.transform.RotateAround(transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);//auto rotate
+        }
+        else
+        {
+            pointer.transform.RotateAround(transform.position, Vector3.forward, rotation * rotationSpeed * Time.deltaTime);//rotate with input
+        }
+        
     }
 
     IEnumerator ResetCooldownIndicator()
@@ -120,7 +133,8 @@ public class PlayerControl : MonoBehaviour
     {
         // Instantiate projectile at the position of the pointer
         GameObject projectile = Instantiate(projectilePrefab, pointer.transform.position, Quaternion.identity);
-
+        //set up for friendly fire trait
+        projectile.GetComponent<BulletControl>().friendlyFire = GetComponent<TraitList>().hasTrait("bouncebullets") ? true : false;
         // Calculate direction towards pointer
         Vector3 direction = (pointer.transform.position - transform.position).normalized;
 
@@ -130,9 +144,9 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("is collided");
         if ((collision.gameObject.CompareTag("Bullet_p1") && playerIndex == 2) ||
-            (collision.gameObject.CompareTag("Bullet_p2") && playerIndex == 1))
+            (collision.gameObject.CompareTag("Bullet_p2") && playerIndex == 1) ||
+            collision.gameObject.GetComponent<BulletControl>().friendlyFire)
         {
             GetComponent<PlayerHealth>().TakeDamage(EnermyDamage);
             Destroy(collision.gameObject);

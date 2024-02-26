@@ -14,7 +14,10 @@ public class TraitManager : MonoBehaviour
     List<Trait> masterTraitList = new List<Trait>{
         new Trait{id="highhp", weight=1, displayName="High HP"},
         new Trait{id="bigbullets", weight=1, displayName="Big Bullets"},
-        new Trait{id="lowhp", weight=-1, displayName="Low HP"}
+        new Trait{id="lowhp", weight=-1, displayName="Low HP"},
+        new Trait{id="bouncebullets", weight=0, displayName="Bouncing bullets but friendly fire"},
+        new Trait{id="noaim", weight=-1, displayName="No aiming"},
+        new Trait{id="invertedcontrols", weight=-3, displayName="Inverted controls"}
     };
 
     public List<GameObject> players;
