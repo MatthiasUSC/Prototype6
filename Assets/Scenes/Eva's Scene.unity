@@ -300,6 +300,19 @@ MonoBehaviour:
   healthPrefab: {fileID: 3009885147798591318, guid: 86cd5c74c6ac656439d1dc688a01a114, type: 3}
   maxHealth: 5
   WinUI: {fileID: 1094268141}
+--- !u!114 &391977556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391977543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfad92b473aa1f04bba0f5e49edb2e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traitList: []
 --- !u!1 &405599798
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +776,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 239859453159579307, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
       insertIndex: 3
       addedObject: {fileID: 1870957665}
+    - targetCorrespondingSourceObject: {fileID: 239859453159579307, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1870957670}
   m_SourcePrefab: {fileID: 100100000, guid: 87a56305f19eb8d47ab3a47ce0a30424, type: 3}
 --- !u!1 &1171486261
 GameObject:
@@ -1578,6 +1594,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3616027443705177, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
       insertIndex: 3
       addedObject: {fileID: 391977550}
+    - targetCorrespondingSourceObject: {fileID: 3616027443705177, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 391977556}
   m_SourcePrefab: {fileID: 100100000, guid: c8ad4729f1f532d47b620a803d0df89c, type: 3}
 --- !u!1 &1870957652 stripped
 GameObject:
@@ -1656,6 +1675,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1870957670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870957652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfad92b473aa1f04bba0f5e49edb2e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traitList: []
 --- !u!1 &2140305191
 GameObject:
   m_ObjectHideFlags: 0

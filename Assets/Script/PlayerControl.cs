@@ -59,6 +59,10 @@ public class PlayerControl : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     /* Method name: Move
@@ -135,6 +139,7 @@ public class PlayerControl : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, pointer.transform.position, Quaternion.identity);
         //set up for friendly fire trait
         projectile.GetComponent<BulletControl>().friendlyFire = GetComponent<TraitList>().hasTrait("bouncebullets") ? true : false;
+        projectile.GetComponent<BulletControl>().firedTime = Time.time;
         // Calculate direction towards pointer
         Vector3 direction = (pointer.transform.position - transform.position).normalized;
 
@@ -146,7 +151,7 @@ public class PlayerControl : MonoBehaviour
     {
         if ((collision.gameObject.CompareTag("Bullet_p1") && playerIndex == 2) ||
             (collision.gameObject.CompareTag("Bullet_p2") && playerIndex == 1) ||
-            collision.gameObject.GetComponent<BulletControl>().friendlyFire)
+            (collision.gameObject.GetComponent<BulletControl>().friendlyFire && Time.time - collision.gameObject.GetComponent<BulletControl>().firedTime> 0.2f))
         {
             GetComponent<PlayerHealth>().TakeDamage(EnermyDamage);
             Destroy(collision.gameObject);

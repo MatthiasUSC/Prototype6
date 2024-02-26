@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletControl : MonoBehaviour
 {
     public bool friendlyFire = false; //bouncy trait
+    public float firedTime;
     // Start is called before the first frame update
     void Start()
     {
