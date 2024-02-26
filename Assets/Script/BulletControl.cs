@@ -9,6 +9,9 @@ public class BulletControl : MonoBehaviour
     
     Vector2 perpDir;
     public float curveForce = 10f;
+    public bool friendlyFire = false; //bouncy trait
+    public float firedTime;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +45,7 @@ public class BulletControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Player") && !friendlyFire)
         {
             // if(collision.gameObject.CompareTag("Bullet_p1") || collision.gameObject.CompareTag("Bullet_p2")){
             //     if (collision.gameObject.tag == "Robot") {

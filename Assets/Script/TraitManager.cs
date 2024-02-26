@@ -19,6 +19,9 @@ public class TraitManager : MonoBehaviour
         new Trait{id="curveleft", weight=-1, displayName="Hook"},
         new Trait{id="curveright", weight=-1, displayName="Slice"},
         new Trait{id="xraybullet", weight=1, displayName="X-ray Bullets"},
+        new Trait{id="bouncebullets", weight=0, displayName="Bouncing bullets but friendly fire"},
+        new Trait{id="noaim", weight=-1, displayName="No aiming"},
+        new Trait{id="invertedcontrols", weight=-3, displayName="Inverted controls"}
     };
 
     public List<GameObject> players;
