@@ -19,6 +19,17 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
+        //traits for high and low hp
+        if (GetComponent<TraitList>().hasTrait("highhp") && !GetComponent<TraitList>().hasTrait("lowhp"))
+        {
+            maxHealth = 6;
+        }
+        if (GetComponent<TraitList>().hasTrait("lowhp") && !GetComponent<TraitList>().hasTrait("highhp"))
+        {
+            maxHealth = 4;
+        }
+
+        //heart UI start position for two players
         if (GetComponent<PlayerControl>().playerIndex == 1) {
             startPosition = -10f;
         }
