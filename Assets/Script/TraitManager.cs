@@ -31,32 +31,35 @@ public class TraitManager : MonoBehaviour
 
     void Start()
     {
-        for(int i = 0; i < players.Count; i++){
-            shuffleMasterList();
+        if(numberOfTraits > 0){
+            for(int i = 0; i < players.Count; i++){
+                shuffleMasterList();
 
-            List<Trait> tempTraitList = new List<Trait>(masterTraitList);
-            List<Trait> playerTraitList = new List<Trait>();
+                List<Trait> tempTraitList = new List<Trait>(masterTraitList);
+                List<Trait> playerTraitList = new List<Trait>();
 
-            int points = 0;
-            for(int j = 0; j < numberOfTraits; j++){
-                if(tempTraitList.Count == 0){
-                    break;
+                int points = 0;
+                for(int j = 0; j < numberOfTraits; j++){
+                    if(tempTraitList.Count == 0){
+                        break;
+                    }
+
+                    Trait pickedTrait;
+                    if(points >= pointLimit){
+                        pickedTrait = getNegativeTrait(tempTraitList);
+                    } else {
+                        pickedTrait = getPositiveTrait(tempTraitList);
+                    }
+
+                    points += pickedTrait.weight;
+                    tempTraitList.Remove(pickedTrait);
+                    playerTraitList.Add(pickedTrait);
                 }
 
-                Trait pickedTrait;
-                if(points >= pointLimit){
-                    pickedTrait = getNegativeTrait(tempTraitList);
-                } else {
-                    pickedTrait = getPositiveTrait(tempTraitList);
-                }
-
-                points += pickedTrait.weight;
-                tempTraitList.Remove(pickedTrait);
-                playerTraitList.Add(pickedTrait);
+                players[i].GetComponent<TraitList>().traitList = playerTraitList;
             }
-
-            players[i].GetComponent<TraitList>().traitList = playerTraitList;
         }
+        
     }
 
     Trait getNegativeTrait(List<Trait> list){
