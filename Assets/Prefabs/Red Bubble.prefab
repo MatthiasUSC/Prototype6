@@ -51,6 +51,9 @@ MonoBehaviour:
   curveForce: 10
   friendlyFire: 0
   firedTime: 0
+  audioSource: {fileID: 0}
+  pop: {fileID: 8300000, guid: ec81794a1b296cf4eaf8372cc47888c0, type: 3}
+  collisionEffect: {fileID: 0}
 --- !u!50 &6539299144870304791
 Rigidbody2D:
   serializedVersion: 4

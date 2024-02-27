@@ -352,6 +352,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 479115088538904596, guid: d22eb27ab29020543a40ca9b7e994852, type: 3}
   cooldownIndicator: {fileID: 1747257062}
   projectileSound: {fileID: 0}
+  audioManager: {fileID: 0}
+  collisionEffect: {fileID: 0}
+  oppo_collisionEffect: {fileID: 0}
+  pop: {fileID: 0}
   EnermyDamage: 1
 --- !u!114 &391977550
 MonoBehaviour:
@@ -1729,7 +1733,11 @@ MonoBehaviour:
   pointer: {fileID: 365038407}
   projectilePrefab: {fileID: 1050243093071025295, guid: 29334bd8c60bf294890b6a33ed0bfda7, type: 3}
   cooldownIndicator: {fileID: 940069933}
-  projectileSound: {fileID: 0}
+  projectileSound: {fileID: 8300000, guid: e653178e8b97521448d6c815dbddb64f, type: 3}
+  audioManager: {fileID: 0}
+  collisionEffect: {fileID: 0}
+  oppo_collisionEffect: {fileID: 0}
+  pop: {fileID: 0}
   EnermyDamage: 1
 --- !u!114 &1870957659
 MonoBehaviour:

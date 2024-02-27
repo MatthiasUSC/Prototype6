@@ -28,6 +28,10 @@ public class PlayerControl : MonoBehaviour
 
     // Audio variables
     [SerializeField] private AudioClip projectileSound;
+    public AudioSource audioManager;
+    public ParticleSystem collisionEffect;
+    public ParticleSystem oppo_collisionEffect;
+    public AudioClip pop;
     private AudioSource audioSource;
 
 
@@ -131,14 +135,14 @@ public class PlayerControl : MonoBehaviour
         if (playerIndex == 1)
         {
             horizontal = ifReverse * Input.GetAxis("Horizontal_p1");
-            vertical = ifReverse * Input.GetAxis("Vertical_p1");
-            rotation = Input.GetAxis("Rotation_p1");
+            vertical = ifReverse * -Input.GetAxis("Vertical_p1");
+            rotation = -Input.GetAxis("Rotation_p1");
         }
         else
         {
             horizontal = ifReverse * Input.GetAxis("Horizontal_p2");
-            vertical = ifReverse * Input.GetAxis("Vertical_p2");
-            rotation = Input.GetAxis("Rotation_p2");
+            vertical = ifReverse * -Input.GetAxis("Vertical_p2");
+            rotation = -Input.GetAxis("Rotation_p2");
         }
 
         if (GetComponent<TraitList>().hasTrait("slowspeed") && !GetComponent<TraitList>().hasTrait("fastspeed"))
@@ -207,6 +211,8 @@ public class PlayerControl : MonoBehaviour
         //set up for friendly fire trait
         projectile.GetComponent<BulletControl>().friendlyFire = GetComponent<TraitList>().hasTrait("bouncebullets") ? true : false;
         projectile.GetComponent<BulletControl>().firedTime = Time.time;
+        projectile.GetComponent<BulletControl>().audioSource = audioManager;
+        projectile.GetComponent<BulletControl>().collisionEffect = collisionEffect;
         if (GetComponent<TraitList>().hasTrait("bigbullets"))
         {
             projectile.transform.localScale = new Vector3(bigBulletSize, bigBulletSize, bigBulletSize);
@@ -218,15 +224,23 @@ public class PlayerControl : MonoBehaviour
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
     
         projectile.GetComponent<BulletControl>().originPlayer = this.gameObject;
+        audioSource.clip = projectileSound;
+        audioSource.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.CompareTag("Bullet_p1") && playerIndex == 2) ||
+        BulletControl bulletControl = collision.gameObject.GetComponent<BulletControl>();
+        if (bulletControl != null && ((collision.gameObject.CompareTag("Bullet_p1") && playerIndex == 2) ||
             (collision.gameObject.CompareTag("Bullet_p2") && playerIndex == 1) ||
-            (collision.gameObject.GetComponent<BulletControl>().friendlyFire && Time.time - collision.gameObject.GetComponent<BulletControl>().firedTime> 0.2f))
+            (collision.gameObject.GetComponent<BulletControl>().friendlyFire && Time.time - collision.gameObject.GetComponent<BulletControl>().firedTime> 0.2f)))
         {
             GetComponent<PlayerHealth>().TakeDamage(EnermyDamage);
+
+            audioSource.clip = pop;
+            audioSource.Play();
+            oppo_collisionEffect.transform.position = transform.position;
+            oppo_collisionEffect.Play();
             Destroy(collision.gameObject);
         }
     }

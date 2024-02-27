@@ -18,9 +18,9 @@ InputManager:
     sensitivity: 3
     snap: 1
     invert: 0
-    type: 0
+    type: 2
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Vertical_p2
     descriptiveName: player2 vertical input
@@ -34,8 +34,8 @@ InputManager:
     sensitivity: 3
     snap: 1
     invert: 0
-    type: 0
-    axis: 0
+    type: 2
+    axis: 1
     joyNum: 2
   - serializedVersion: 3
     m_Name: Rotation_p2
@@ -50,15 +50,15 @@ InputManager:
     sensitivity: 3
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
+    type: 2
+    axis: 2
     joyNum: 2
   - serializedVersion: 3
     m_Name: Fire_p2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: end
+    positiveButton: joystick button 5
     altNegativeButton: 
     altPositiveButton: mouse 1
     gravity: 3
@@ -68,7 +68,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 0
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Horizontal_p1
     descriptiveName: 
@@ -82,9 +82,9 @@ InputManager:
     sensitivity: 3
     snap: 0
     invert: 0
-    type: 0
+    type: 2
     axis: 0
-    joyNum: 0
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Vertical_p1
     descriptiveName: 
@@ -98,9 +98,9 @@ InputManager:
     sensitivity: 3
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
+    type: 2
+    axis: 1
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Rotation_p1
     descriptiveName: 
@@ -114,15 +114,15 @@ InputManager:
     sensitivity: 3
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
+    type: 2
+    axis: 2
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Fire_p1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: space
+    positiveButton: joystick button 4
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
@@ -132,7 +132,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 1
-    joyNum: 0
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Mouse ScrollWheel
     descriptiveName: 

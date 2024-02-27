@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletControl : MonoBehaviour
@@ -15,11 +16,15 @@ public class BulletControl : MonoBehaviour
     public float curveForce = 10f;
     public bool friendlyFire = false; //bouncy trait
     public float firedTime;
-    
+
+    public AudioSource audioSource;
+    public AudioClip pop;
+    public ParticleSystem collisionEffect;
+
     // Start is called before the first frame update
     void Start()
     {
-        if(originPlayer.name == "Player1"){
+        if (originPlayer.name == "Player1"){
             otherPlayer = GameObject.Find("Player2");
         } else {
             otherPlayer = GameObject.Find("Player1");
@@ -59,6 +64,7 @@ public class BulletControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (!collision.gameObject.CompareTag("Player") && !friendlyFire)
         {
             // if(collision.gameObject.CompareTag("Bullet_p1") || collision.gameObject.CompareTag("Bullet_p2")){
@@ -70,9 +76,14 @@ public class BulletControl : MonoBehaviour
             //         Destroy(this.gameObject);
             //     }
             // } else {
+            audioSource.clip = pop;
+            audioSource.Play();
+            collisionEffect.transform.position = transform.position;
+            collisionEffect.Play();
             Destroy(this.gameObject);
             // }
             
+
         }
     }
 
