@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject healthPrefab; // Assign in inspector
-    public int maxHealth = 5;
+    public int maxHealth = 3;
 
     //arrangement for heart icons
     private float width = 1.2f;
@@ -22,11 +22,11 @@ public class PlayerHealth : MonoBehaviour
         //traits for high and low hp
         if (GetComponent<TraitList>().hasTrait("highhp") && !GetComponent<TraitList>().hasTrait("lowhp"))
         {
-            maxHealth = 6;
+            maxHealth = 5;
         }
         if (GetComponent<TraitList>().hasTrait("lowhp") && !GetComponent<TraitList>().hasTrait("highhp"))
         {
-            maxHealth = 4;
+            maxHealth = 1;
         }
 
         //heart UI start position for two players

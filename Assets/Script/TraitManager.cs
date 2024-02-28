@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TraitManager : MonoBehaviour
 {
@@ -11,17 +12,18 @@ public class TraitManager : MonoBehaviour
         public string displayName;
     }
 
+
     List<Trait> masterTraitList = new List<Trait>{
-        new Trait{id="highhp", weight=1, displayName="High HP"},
+        new Trait{id="highhp", weight=2, displayName="High HP"},
         new Trait{id="bigbullets", weight=1, displayName="Big Bullets"},
-        new Trait{id="lowhp", weight=-1, displayName="Low HP"},
+        new Trait{id="lowhp", weight=-2, displayName="Low HP"},
         new Trait{id="multibullet", weight=1, displayName="Multiple Bullets"},
         new Trait{id="curveleft", weight=-1, displayName="Hook"},
         new Trait{id="curveright", weight=-1, displayName="Slice"},
-        new Trait{id="xraybullet", weight=1, displayName="X-ray Bullets"},
+        new Trait{id="xraybullet", weight=2, displayName="X-ray Bullets"},
         new Trait{id="bouncebullets", weight=0, displayName="Bouncing bullets but friendly fire"},
-        new Trait{id="noaim", weight=-1, displayName="No aiming"},
-        new Trait{id="invertedcontrols", weight=-3, displayName="Inverted controls"},
+        new Trait{id="noaim", weight=-4, displayName="No aiming"},
+        new Trait{id="invertedcontrols", weight=-4, displayName="Inverted controls"},
         new Trait{id="smallsize", weight=1, displayName="Small Size"},
         new Trait{id="bigsize", weight=-1, displayName="Big Size"},
         new Trait{id="fastspeed", weight=1, displayName="Fast Speed"},
@@ -35,9 +37,38 @@ public class TraitManager : MonoBehaviour
 
     public List<GameObject> players;
 
-    public int pointLimit;
-    public int numberOfTraits;
+    static public int pointLimit;
+    static public int numberOfTraits;
 
+    public TextMeshProUGUI pointLimitUI;
+    public TextMeshProUGUI numberOfTraitsUI;
+
+    public List<TextMeshProUGUI> traitsUI;
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Q)){
+            pointLimit -= 1;
+        }
+        if(Input.GetKeyDown(KeyCode.W)){
+            pointLimit += 1;
+        }
+        if(Input.GetKeyDown(KeyCode.A)){
+            numberOfTraits -= 1;
+        }   
+        if(Input.GetKeyDown(KeyCode.S)){
+            numberOfTraits += 1;
+        }
+        if(Input.GetKeyDown(KeyCode.E)){
+            pointLimitUI.enabled = !pointLimitUI.enabled;
+            numberOfTraitsUI.enabled = !numberOfTraitsUI.enabled;
+            for(int i = 0; i < traitsUI.Count; i++){
+                traitsUI[i].enabled = !traitsUI[i].enabled;
+            }
+        }
+
+        pointLimitUI.text = "Point Baseline: " + pointLimit.ToString();
+        numberOfTraitsUI.text = "Num of Traits: " + numberOfTraits.ToString();
+
+    }
     void Start()
     {
         if(numberOfTraits > 0){
@@ -48,6 +79,7 @@ public class TraitManager : MonoBehaviour
                 List<Trait> playerTraitList = new List<Trait>();
 
                 int points = 0;
+                string text = "Traits: \n";
                 for(int j = 0; j < numberOfTraits; j++){
                     if(tempTraitList.Count == 0){
                         break;
@@ -63,9 +95,15 @@ public class TraitManager : MonoBehaviour
                     points += pickedTrait.weight;
                     tempTraitList.Remove(pickedTrait);
                     playerTraitList.Add(pickedTrait);
+                    text += pickedTrait.displayName;
+                    text += ", ";
+                    text += pickedTrait.weight.ToString();
+                    text += "\n";
                 }
 
                 players[i].GetComponent<TraitList>().traitList = playerTraitList;
+
+                traitsUI[i].text = text;
             }
         }
         
